@@ -202,7 +202,7 @@ def triangles(n):
     while True:
         yield L #yield 语句将当前的列表 L 返回，并且函数的执行状态会被暂停。下次迭代时，函数会从上次暂停的地方继续执行，生成下一个列表 L。
         L.append(0) #先累加一个0
-        L = [L[i-1] + L[i] for i in range(len(L))] #根据上一行的列表元素生成当前行
+        L = [L[i-1] + L[i] for i in range(len(L))] #根据当前行的列表生成下一行，注意：L[-1]为L中的最后一个元素，即累加的0
         
 n = 0
 for t in triangles(10):
