@@ -402,3 +402,121 @@ if __name__ == '__main__':
     print(new_class)
     print(type(new_class))
     print(dir(new_class))
+
+#继承    
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+class UserInfo(object):
+    lv = 5
+
+    def __init__(self, name, age, account):
+        self.name = name
+        self._age = age
+        self.__account = account
+
+    def get_account(self):
+        return self.__account
+
+    @classmethod
+    def get_name(cls):
+        return cls.lv
+
+    @property
+    def get_age(self):
+        return self._age
+
+
+class UserInfo2(UserInfo):
+    def __init__(self, name, age, account, sex):
+        super(UserInfo2, self).__init__(name, age, account)
+        self.sex = sex;
+
+
+if __name__ == '__main__':
+    userInfo2 = UserInfo2('两点水', 23, 347073565, '男');
+    # 打印所有属性
+    print(dir(userInfo2))
+    # 打印构造函数中的属性
+    print(userInfo2.__dict__)
+    print(UserInfo2.get_name())
+
+#子类的类型判断
+class User(object):
+    pass
+class User2(User):
+    pass
+class User3(User2):
+    pass
+
+if __name__ == '__main__':
+    user1 = User()
+    user2 = User2()
+    user3 = User3()
+    print(isinstance(user3, User2))
+    print(isinstance(user3, User))
+    print(isinstance(user3, User3))
+    
+    print(isinstance('两点水', str))
+    print(isinstance(23453464, int))
+    print(isinstance(24324355, str))
+    
+#多态
+class User(object):
+    def __init__(self, name):
+        self.name = name
+        
+    def printUser(self):
+        print('hello!' + self.name)
+        
+class UserVip(User):
+    def printUser(self):
+        print('Hello! Vip用户' + self.name)
+        
+class UserGeneral(User):
+    def printUser(self):
+        print('Hello! 尊敬的用户' + self.name)
+        
+def printUserInfo(user):
+    user.printUser()
+    
+if __name__ == '__main__':
+    userVip = UserVip('swk')
+    printUserInfo(userVip)
+    userGeneral = UserGeneral('SONGWENKE')
+    printUserInfo(userGeneral)
+ 
+    
+#私有方法、属性 限定
+class UserInfo(object):
+    def __init__(self, name, age, account):
+        self.name = name
+        self._age = age
+        self.__account = account
+        
+    def get_account(self):
+        return self.__account
+    
+if __name__ == '__main__':
+    userInfo = UserInfo('songwenke', 26, 2209969938);
+
+    print(dir(userInfo))
+    print(userInfo.__dict__)
+    print(userInfo.get_account())
+    print(userInfo._UserInfo_account)
+    
+def _diamond_vip(lv):
+    print('尊敬的钻石会员用户，您好')
+    vip_name = 'DiamondVip' + str(lv)
+    return vip_name
+def _gold_vip(lv):
+    print('尊敬的黄金会员，您好')
+    vip_name = 'GoldVip' + str(lv)
+    return vip_name
+def vip_lv_name(lv):
+    if lv ==1:
+        print(_gold_vip(lv))
+    elif lv == 2:
+        print(_diamond_vip(lv))
+        
+vip_lv_name(2)
